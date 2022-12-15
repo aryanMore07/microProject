@@ -7,7 +7,7 @@ const gallerySchema = new Schema({
     likes: {type: Number, default: 0},
     imageLink: {type:String, required: true}
 }, {
-    timestamps : {createdAt: new Date(), updatedAt: new Date()}
+    timestamps : {createdAt: "createdAt", updatedAt: "updatedAt"}
 });
 
 module.exports = model("gallery",gallerySchema);

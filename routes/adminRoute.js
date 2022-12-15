@@ -21,6 +21,30 @@ route.get("/add-category/:categoryName", async (req, res, next) => {
     }
 }); 
 
+route.post("/add-image", async (req, res, next) => {
+    try {
+        const name = req.body.name;
+        const category = req.body.category;
+        const imageUrl = req.body.imageUrl;
+        console.log(name, category, imageUrl);
+
+        if (!name || !category.length || !imageUrl) {
+            res.status(400).send("Bad Request");
+        }
+
+        const newGalleryData = {
+            name: name,
+            category: category,
+            imageLink: imageUrl,
+        };
+
+        await GalleryModel.create(newGalleryData);
+        res.send("Image added successfully!");
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
+});
 
 
 module.exports = route;
