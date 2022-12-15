@@ -20,6 +20,8 @@ app.get("/api/health", (req, res) => {
 
 app.use("/api/admin", admimRoute);
 
+app.use((err, req, res, next) => res.status(500).send("Something went wrong!. Please try again later"));
+
 app.listen(8000, () => {
     console.log("Express server is running on port 8000");
 });
