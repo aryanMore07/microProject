@@ -20,6 +20,9 @@ app.get("/api/health", (req, res) => {
 
 app.use("/api/admin", admimRoute);
 
+app.use((req, res, next) => {
+    res.status(404).send("You are looking for something that we dont have!!!");
+})
 app.use((err, req, res, next) => res.status(500).send("Something went wrong!. Please try again later"));
 
 app.listen(8000, () => {
