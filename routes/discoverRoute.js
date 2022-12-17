@@ -37,6 +37,46 @@ route.get("/like/:imageId", async (req, res, next) => {
     }
 });
 
+route.get("/discover/:category/:shuffle", async (req, res, next) => {
+    try {
+        const category = req.params.category;
+        const shuffle = req.params.shuffle;
+        const sortByDate = req.params.sortByDate;
+        const filterByLike = req.params.filterByLike;
 
+        if(!category) {
+            res.status(400).send("Bad Request");
+        };
+
+        let  sort = 1;
+        let skip = parseInt(shuffle);
+
+        if(sortByDate) {
+            if(sortByDate == "asc") {
+                sort = 1;
+            } else if(sortByDate == "desc") {
+                sort = -1;
+            }
+        }
+
+        let filter = {};
+        if(filterByLike) {
+            filter = { likes : 1 };
+        }
+
+        const gallaryDetails = await GalleryModel.find({
+            category: {$in : [category]},
+            ...filter,
+        })
+        .sort({ createdAt: sort})
+        .skip(skip)
+        .limit(4)
+
+
+        res.json(gallaryDetails);
+    } catch (error) {
+        
+    }
+});
 
 module.exports = route;
