@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from "react-router-dom";
 import Filter from '../Filter/Filter';
-import {getCategories} from "../../"
+import {getCategories} from "../../api/discover"
 import "./category.css";
 
 function Category() {
